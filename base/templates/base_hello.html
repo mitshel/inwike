@@ -1,0 +1,96 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block main-content %}
+<style>
+.my-flex-card > div > div.card {
+    height: calc(100% - 5px);
+    margin-bottom: 5px;
+}
+
+.my-flex-card > div > div.card {
+    height: calc(100% - 5px);
+    margin-bottom: 5px;
+}
+
+</style>
+
+
+        <div class="jumbotron media" style="padding: 1rem; margin:1rem;">
+          <img src="{% static "images\inwike_logo.png" %}" class="align-self-start mr-3" width="150px">
+          <div class="media-body">
+            <h2 class="display-6">Платформа INWIKE HR PORTAL.</h5>
+            <span class="badge badge-primary">{{ user.employee_user.all.0.org.name }}</span>
+            <!--<p><b>Приветствуем Вас, уважаемый(ая) {% if user.last_name %}{{ user.last_name }} {{ user.first_name }}{% else %}{{ user.username }}{% endif %}!</b></p>-->
+            <p>INWIKE HR Portal - Электронное удостоверение сотрудника.</p>
+          </div>
+        </div>
+
+      <div class="container-fluid">
+      <div class="row card-group my-flex-card">
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Знания/умения/мастерство</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,</p>
+                  </div>
+                    <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Коммуникабельность</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,</p>
+                  </div>
+                  <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-1 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Ответственность</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,</p>
+                  </div>
+                  <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Активность</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,</p>
+                  </div>
+                  <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Инновационность</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,.</p>
+                  </div>
+                    <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                <div class="card border-primary">
+                  <h5 class="card-header bg-primary text-white">Предприимчивость</h5>
+                  <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque dolorum ducimus earum excepturi fuga,</p>
+                  </div>
+                    <div class="card-footer d-flex flex-row-reverse"><a href="#" class="btn btn-primary">Подробно &raquo;</a></div>
+                </div>
+          </div>
+       </div>
+
+      </div>
+
+{% endblock %}  {# content #}
