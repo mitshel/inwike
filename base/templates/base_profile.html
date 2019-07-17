@@ -3,8 +3,9 @@
 {% load i18n %}
 
 {% block main-content %}
-<script type="text/javascript" src="{% static "chartjs/Chart.min.js" %}"></script>
+<script type="text/javascript" src="{% static "chartjs/Chart.bundle.min.js" %}"></script>
 <script type="text/javascript" src="{% static "chartjs/utils.js" %}"></script>
+<!--<script type="text/javascript" src="{% static "chartjs/chartjs-plugin-labels.min.js" %}"></script>-->
 <style>
     canvas {
         -moz-user-select: none;
@@ -58,9 +59,7 @@
         </div>
     </div>
     <div class="col-lg-9 col-md-6 col-sm-12">
-    <div style="width:100%">
-		<canvas id="canvas"></canvas>
-	</div>
+		<canvas id="canvas" height="150rem"></canvas>
 	<script>
 		var randomScalingFactor = function() {
 			return Math.round(Math.random() * 100);
@@ -128,7 +127,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-graduation-cap fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container1"><canvas id="canvas1"></canvas></div></td>
+                              <td><canvas id="canvas1" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -150,7 +149,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-users fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container2"><canvas id="canvas2"></canvas></div></td>
+                              <td><canvas id="canvas2" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -172,7 +171,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-flag fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container3"><canvas id="canvas3"></canvas></div></td>
+                              <td><canvas id="canvas3" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -194,7 +193,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-trophy fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container4"><canvas id="canvas4"></canvas></div></td>
+                              <td><canvas id="canvas4" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -217,7 +216,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-cog fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container5"><canvas id="canvas5"></canvas></div></td>
+                              <td><canvas id="canvas5" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -240,7 +239,7 @@
                       <table class="card-text">
                           <tr>
                               <td><i class="fa fa-truck fa-3x pr-3" aria-hidden="true" style="color:#0078FF;"></i></td>
-                              <td><div id="container6"><canvas id="canvas6"></canvas></div></td>
+                              <td><canvas id="canvas6" width="100%" height="100%"></canvas></td>
                           </tr>
                           <tr>
                                <td><b>Рейтинг:&nbsp;</b></td>
@@ -318,7 +317,7 @@
 			}]
 		};
 
-        var barChartOoptions = { responsive: true, legend: { display: false } };
+        var barChartOoptions = { responsive: true, maintainAspectRatio: false, legend: { position: top, display: false }  };
 
 	window.onload = function() {
 	        window.myRadar = new Chart(document.getElementById('canvas').getContext('2d'), config);
