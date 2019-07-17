@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>BI Monitor</title>
+    <title>Inwike HR Portal</title>
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "fonts/css/all.css" %}">
     <link rel="stylesheet" type="text/css"  href="{% static "jquery-ui/jquery-ui.structure.min.css" %}">
@@ -25,17 +25,17 @@
       <div class="collapse navbar-collapse" id="navbarLeft">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#"><i class="fa fa-chart-pie" aria-hidden="true"></i> Аналитика <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'base:home' %}"><i class="fa fa-chart-pie" aria-hidden="true"></i> Аналитика <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-database" aria-hidden="true"></i> Информация <span class="sr-only">(current)</span></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Знания/умения/мастерство</a></li>
-              <li><a class="dropdown-item" href="#">Коммуникабельность</a></li>
-              <li><a class="dropdown-item" href="#">Ответственность</a></li>
-              <li><a class="dropdown-item" href="#">Активность</a></li>
-              <li><a class="dropdown-item" href="#">Инновационность</a></li>
-              <li><a class="dropdown-item"  href="#">Предприимчивость</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 0 %}"><i class="fa fa-graduation-cap"></i>&nbsp; Знания/умения/мастерство</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 1 %}"><i class="fa fa-users"></i>&nbsp; Коммуникабельность</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 2 %}"><i class="fa fa-flag"></i>&nbsp; Ответственность</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 3 %}"><i class="fa fa-trophy"></i>&nbsp; Активность</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 4 %}"><i class="fa fa-cog"></i>&nbsp; Инновационность</a></li>
+              <li><a class="dropdown-item" href="{% url 'base:scope' 5 %}"><i class="fa fa-truck"></i>&nbsp; Предприимчивость</a></li>
             </ul>
           </li>
 
