@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
+from conn1c.views import conn1c
+
 scope_names = {0:'Знания, умения, мастерство', 1:'Коммуникабельность',2:'Ответственность', 3:'Активность', 4:'Инновационность', 5:'Предприимчивость'}
 scope_icons = {0:'fa-graduation-cap', 1:'fa-users',2:'fa-flag', 3:'fa-trophy', 4:'fa-cog', 5:'fa-truck'}
 scope_parts = {0: [
@@ -44,11 +46,28 @@ class HomeView(TemplateView):
 class ProfileView(TemplateView):
     template_name = 'base_profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        data_rating = conn1c()
+        data = data_rating.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
+        print(data)
+
+        # scope_id = kwargs['scope_id']
+        # context['scope_name'] = scope_names[scope_id]
+        # context['scope_icon'] = scope_icons[scope_id]
+        context['data'] = data
+        context['fio'] = 'Малютина Ирина Иосифовна'
+        context['position'] = 'Бухгалтер-экономист'
+        return context
+
 class ScopeView(TemplateView):
     template_name = 'base_scope.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        #data_1c = conn1c.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
 
         scope_id = kwargs['scope_id']
         context['scope_name'] = scope_names[scope_id]

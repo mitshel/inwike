@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load l10n %}
 
 {% block main-content %}
 <script type="text/javascript" src="{% static "chartjs/Chart.bundle.min.js" %}"></script>
@@ -39,17 +40,17 @@
             <table class="card-text w-100">
                 <tr>
                     <td><b>Стаж:&nbsp;</b></td>
-                    <td class="w-100">12 лет 3 мес</td>
+                    <td class="w-100">{{ data.params.exp_emp }}</td>
                 </tr>
                 <tr>
                     <td> <b>Уровень:&nbsp;</b></td>
-                    <td class="w-100">12/20</td>
+                    <td class="w-100">{{ data.params.lvl_emp }}</td>
                 </tr>
                 <tr>
                     <td><b>Рейтинг:&nbsp;</b></td>
                     <td class="w-100">
                         <div class="progress">
-                            <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 67%">67%</div>
+                            <div class="progress-bar {% if data.params.raiting_emp < 50 %}bg-danger{% elif data.params.raiting_emp <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.raiting_emp }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.raiting_emp }}%">{{ data.params.raiting_emp }}%</div>
                         </div>
                     </td>
                 </tr>
@@ -76,12 +77,14 @@
 					borderColor: window.chartColors.red,
 					pointBackgroundColor: window.chartColors.red,
 					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
+					    {% localize off %}
+                        {{ data.params.avr_knld }},
+						{{ data.params.avr_soc }},
+						{{ data.params.avr_resp }},
+						{{ data.params.avr_activ }},
+						{{ data.params.avr_innov }},
+						{{ data.params.avr_ent }}
+                        {% endlocalize %}
 					]
 				}, {
 					label: 'Малютина Ирина Иосифовна',
@@ -89,12 +92,14 @@
 					borderColor: window.chartColors.blue,
 					pointBackgroundColor: window.chartColors.blue,
 					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
+					    {% localize off %}
+                        {{ data.params.knld_12 }},
+						{{ data.params.soc_12 }},
+						{{ data.params.resp_12 }},
+						{{ data.params.activ_12 }},
+						{{ data.params.innov_12 }},
+						{{ data.params.ent_12 }}
+                        {% endlocalize %}
 					]
 				}]
 			},
@@ -133,7 +138,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">60%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.knld_12 < 50 %}bg-danger{% elif data.params.knld_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.knld_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.knld_12 }}%">{{ data.params.knld_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -155,7 +162,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%">43%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.soc_12 < 50 %}bg-danger{% elif data.params.soc_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.soc_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.soc_12 }}%">{{ data.params.soc_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -177,7 +186,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">85%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.resp_12 < 50 %}bg-danger{% elif data.params.resp_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.resp_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.resp_12 }}%">{{ data.params.resp_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -199,7 +210,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">77%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.activ_12 < 50 %}bg-danger{% elif data.params.activ_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.activ_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.activ_12 }}%">{{ data.params.activ_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -222,7 +235,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100" style="width: 97%">97%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.innov_12 < 50 %}bg-danger{% elif data.params.innov_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.innov_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.innov_12 }}%">{{ data.params.innov_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -245,7 +260,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="19" aria-valuemin="0" aria-valuemax="100" style="width: 19%">19%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if data.params.ent_12 < 50 %}bg-danger{% elif data.params.ent_12 <= 75%}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ data.params.ent_12 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ data.params.ent_12 }}%">{{ data.params.ent_12 }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -260,7 +277,7 @@
 
 <script>
 		var MONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-		var curMONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'];
+		var curMONTHS = [{% for m in data.months %}'{{ m }}'{% if not forloop.last %},{% endif %}{% endfor %}];
 		var color = Chart.helpers.color;
 		var barChartData1 = {
 			labels: curMONTHS,
@@ -268,7 +285,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.knlds %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 		var barChartData2 = {
@@ -277,7 +294,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.socs %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 		var barChartData3 = {
@@ -286,7 +303,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.resps %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 		var barChartData4 = {
@@ -295,7 +312,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.activs %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 		var barChartData5 = {
@@ -304,7 +321,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.innovs %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 		var barChartData6 = {
@@ -313,7 +330,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in data.ents %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 
