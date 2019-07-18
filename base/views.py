@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.urls import reverse, reverse_lazy
+from django.template.context_processors import csrf
+from django.shortcuts import render, redirect
+from functools import wraps
 
 from conn1c.views import conn1c
 
@@ -41,6 +45,43 @@ scope_parts = {0: [
             }
 
 # Create your views here.
+def base_login(func=None):
+    def decorator(func=None):
+        @wraps(func)
+        def _wrapped_view(request, *args, **kwargs):
+            if request.session.get('emp_uid', False):
+                return func(request, *args, **kwargs)
+            return redirect(reverse_lazy('base:login'))
+        return _wrapped_view
+    return decorator
+
+def loginView(request):
+    args = {}
+    args.update(csrf(request))
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+    except KeyError:
+        return render(request, 'base_login.html', args)
+
+    connection = conn1c()
+    emp_uid = connection.get_uid(username, password)
+
+    if not emp_uid:
+        return render(request, 'base_login.html', args)
+
+    request.session['emp_uid'] = emp_uid
+    return redirect(reverse('base:home'))
+
+@base_login()
+def logoutView(request):
+    try:
+        del request.session['emp_uid']
+    except KeyError:
+        pass
+    args = {}
+    return redirect(reverse('base:login'))
+
 class HomeView(TemplateView):
     template_name = 'base_hello.html'
 

@@ -60,3 +60,17 @@ class conn1c:
         return result
 
 
+    def get_uid(self, login, password):
+        payload = {'login': login, 'password':password}
+        r = requests.get(self.base_url+'get_uid', params=payload, auth=(user1c, pass1c))
+        try:
+            data = r.json()[0]
+        except:
+            data = {}
+
+        result = data.get('UID_FL',None)
+
+        return result
+
+
+
