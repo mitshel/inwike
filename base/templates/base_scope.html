@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load l10n %}
 
 {% block main-content %}
 <script type="text/javascript" src="{% static "chartjs/Chart.min.js" %}"></script>
@@ -20,7 +21,7 @@
     <div class="jumbotron media mb-1" style="padding: 0.5rem 1rem;">
       <img src="{% static "images\inwike_logo.png" %}" class="align-self-start mr-3 pt-1" width="80px">
       <div class="media-body">
-          <h4><b>{{ scope_name }} [ {{ fio }} ]</b></h4>
+          <h4><b>{{ scope_name }} [ {{ emp.params.emp }} ]</b></h4>
       </div>
     </div>
   </div>
@@ -40,7 +41,9 @@
                                <td><b>Рейтинг:&nbsp;</b></td>
                                <td class="w-100">
                                    <div class="progress">
-                                       <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">60%</div>
+                                       {% localize off %}
+                                       <div class="progress-bar {% if scope_rating < 50 %}bg-danger{% elif scope_rating <= 75 %}bg-warning{% else %}bg-success{% endif %} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ scope_rating }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ scope_rating }}%">{{ scope_rating }}%</div>
+                                       {% endlocalize %}
                                    </div>
                                </td>
                           </tr>
@@ -61,8 +64,8 @@
   <div class="col-9">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ fio }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ position }}</h6>
+        <h5 class="card-title">{{ emp.params.emp }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ emp.params.position }}</h6>
         <div class="tab-content" id="nav-tabContent">
           <p class="tab-pane fade show active" id="part_0" role="tabpanel" aria-labelledby="part-0-list">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dolor fuga fugit illo minus quisquam rerum? A, aspernatur eos minima odio perspiciatis ullam vel veritatis voluptates. Debitis quis quod tempore?</p>
           <p class="tab-pane fade" id="part_1" role="tabpanel" aria-labelledby="part-1-list">Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi enim eu nostrud do aliquip veniam minim.</p>
@@ -80,7 +83,7 @@
 
 <script>
 		var MONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-		var curMONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'];
+		var curMONTHS = [{% for m in data.months %}'{{ m }}'{% if not forloop.last %},{% endif %}{% endfor %}];
 		var color = Chart.helpers.color;
 		var barChartData = {
 			labels: curMONTHS,
@@ -88,7 +91,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				data: [ randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(),	randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+				data: [{% for item in scope_chart %}{% localize off %}{{ item }}{% endlocalize %}{% if not forloop.last %},{% endif %}{% endfor %}]
 			}]
 		};
 

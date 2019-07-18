@@ -34,8 +34,8 @@
           <img src="{% static "profile\emp1_sq_500.jpg" %}" class="card-img-top" alt="Мария">
           <div class="card-body">
             <div class="card-title">
-                <h5 class="pb-0 mb-0">Малютина Ирина Иосифовна</h5>
-                <h8 class="pt-0 mt-0"><b>Бухгалтер-экономист</b></h8>
+                <h5 class="pb-0 mb-0">{{ emp.params.emp }}</h5>
+                <h8 class="pt-0 mt-0"><b>{{ emp.params.position }}</b></h8>
             </div>
             <table class="card-text w-100">
                 <tr>

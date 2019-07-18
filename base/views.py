@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from conn1c.views import conn1c
 
 scope_names = {0:'Знания, умения, мастерство', 1:'Коммуникабельность',2:'Ответственность', 3:'Активность', 4:'Инновационность', 5:'Предприимчивость'}
+scope_rat_names = {0:'knlds',1:'socs', 2:'resps', 3:'activs', 4:'innovs', 5:'ents'}
 scope_icons = {0:'fa-graduation-cap', 1:'fa-users',2:'fa-flag', 3:'fa-trophy', 4:'fa-cog', 5:'fa-truck'}
 scope_parts = {0: [
 	                'Дипломы о среднем/высшем образовании с отличем/без',
@@ -50,13 +51,15 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         data_rating = conn1c()
-        data = data_rating.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
-        print(data)
+        #data = data_rating.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
+        emp_rating = data_rating.emp_rating('87433449-7cc0-11e2-9368-001b11b25590')
+        emp_data =  data_rating.emp_data('87433449-7cc0-11e2-9368-001b11b25590')
 
         # scope_id = kwargs['scope_id']
         # context['scope_name'] = scope_names[scope_id]
         # context['scope_icon'] = scope_icons[scope_id]
-        context['data'] = data
+        context['data'] = emp_rating
+        context['emp'] = emp_data
         context['fio'] = 'Малютина Ирина Иосифовна'
         context['position'] = 'Бухгалтер-экономист'
         return context
@@ -66,10 +69,15 @@ class ScopeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        #data_1c = conn1c.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
-
         scope_id = kwargs['scope_id']
+
+        data_rating = conn1c()
+        emp_rating = data_rating.emp_rating('87433449-7cc0-11e2-9368-001b11b25590')
+        emp_data =  data_rating.emp_data('87433449-7cc0-11e2-9368-001b11b25590')
+        context['data'] = emp_rating
+        context['emp'] = emp_data
+        context['scope_chart'] = emp_rating[scope_rat_names[scope_id]]
+        context['scope_rating'] = context['scope_chart'][-1]
         context['scope_name'] = scope_names[scope_id]
         context['scope_icon'] = scope_icons[scope_id]
         context['scope_parts'] = scope_parts[scope_id]

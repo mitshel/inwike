@@ -42,7 +42,20 @@ class conn1c:
         result['innovs'] = self.load_list('innov', 1, data)
         result['ents'] = self.load_list('ent', 1, data)
 
-        print(type(result['params']['knld_12']),' - ',result['params']['knld_12'])
+        return result
+
+    def emp_data(self, emp_UID):
+        payload = {'emp_UID': emp_UID}
+        r = requests.get(self.base_url+'emp_data', params=payload, auth=(user1c, pass1c))
+        try:
+            data = r.json()[0]
+        except:
+            data = {}
+
+        result={}
+        result['params'] = self.load_dict(['emp','Dep','org', 'position'], data)
+
+        print(result)
 
         return result
 
