@@ -45,15 +45,28 @@ scope_parts = {0: [
             }
 
 # Create your views here.
-def base_login(func=None):
-    def decorator(func=None):
+def base_login(function=None):
+    def decorator(func):
         @wraps(func)
         def _wrapped_view(request, *args, **kwargs):
             if request.session.get('emp_uid', False):
                 return func(request, *args, **kwargs)
             return redirect(reverse_lazy('base:login'))
         return _wrapped_view
+
+    if function:
+        return decorator(function)
     return decorator
+
+def is_logged_on(request):
+    if request.session.get('emp_uid', False):
+        return True
+    return False
+
+def base_processor(request):
+    args={}
+    args['logged_on'] = is_logged_on(request)
+    return args
 
 def loginView(request):
     args = {}
