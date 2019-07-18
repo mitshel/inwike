@@ -66,6 +66,7 @@ def is_logged_on(request):
 def base_processor(request):
     args={}
     args['logged_on'] = is_logged_on(request)
+    args['emp_uid'] = request.session.get('emp_uid', 'None')
     return args
 
 def loginView(request):
@@ -105,13 +106,11 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         data_rating = conn1c()
-        #data = data_rating.emp_rating('e32fd1b6-8182-11e2-936e-001b11b25590')
-        emp_rating = data_rating.emp_rating('87433449-7cc0-11e2-9368-001b11b25590')
-        emp_data =  data_rating.emp_data('87433449-7cc0-11e2-9368-001b11b25590')
+        # '87433449-7cc0-11e2-9368-001b11b25590'
+        emp_uid = self.request.session.get('emp_uid', '')
+        emp_rating = data_rating.emp_rating(emp_uid)
+        emp_data =  data_rating.emp_data(emp_uid)
 
-        # scope_id = kwargs['scope_id']
-        # context['scope_name'] = scope_names[scope_id]
-        # context['scope_icon'] = scope_icons[scope_id]
         context['data'] = emp_rating
         context['emp'] = emp_data
         context['fio'] = 'Малютина Ирина Иосифовна'
@@ -126,8 +125,9 @@ class ScopeView(TemplateView):
         scope_id = kwargs['scope_id']
 
         data_rating = conn1c()
-        emp_rating = data_rating.emp_rating('87433449-7cc0-11e2-9368-001b11b25590')
-        emp_data =  data_rating.emp_data('87433449-7cc0-11e2-9368-001b11b25590')
+        emp_uid = self.request.session.get('emp_uid', '')
+        emp_rating = data_rating.emp_rating(emp_uid)
+        emp_data =  data_rating.emp_data(emp_uid)
         context['data'] = emp_rating
         context['emp'] = emp_data
         context['scope_chart'] = emp_rating[scope_rat_names[scope_id]]
