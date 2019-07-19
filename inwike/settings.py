@@ -123,3 +123,5 @@ STATICFILES_DIRS = [
     'assets',
 ]
 
+NOPHOTO_PATH = os.path.join(BASE_DIR,'static/images/nophoto.jpg')
+

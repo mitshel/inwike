@@ -14,6 +14,37 @@
         -ms-user-select: none;
     }
 </style>
+<style>
+.imgcontainer {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.imgcontainer img {
+    width: 100%;
+    height: auto;
+}
+
+.imgcontainer .btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #0078FF;
+    color: white;
+    font-size: 12px;
+    margin: 5px 5px 5px 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.imgcontainer .btn:hover {
+    background-color: #0000FF;
+}
+</style>
+
 
 <div class="container-fluid">
 
@@ -31,7 +62,11 @@
   <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-12">
         <div class="card">
-          <img src="{% static "profile\emp1_sq_500.jpg" %}" class="card-img-top" alt="Мария">
+              <img src="{% url "base:photo" %}" class="card-img-top" alt="">
+               <form action="{% url "base:upload_photo" %}" method="POST">
+                   {% csrf_token %}
+                   <input type="file" class="btn btn-sm autosubmit" name="photo"/>
+               </form>
           <div class="card-body">
             <div class="card-title">
                 <h5 class="pb-0 mb-0">{{ emp.params.emp }}</h5>
@@ -54,10 +89,10 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td><b>ИД:&nbsp;</b></td>
-                    <td class="w-100">{{ emp_uid }}</td>
-                </tr>
+{#                <tr>#}
+{#                    <td><b>ИД:&nbsp;</b></td>#}
+{#                    <td class="w-100">{{ emp_uid }}</td>#}
+{#                </tr>#}
             </table>
             <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
           </div>
@@ -349,6 +384,10 @@
 			window.myBar5 = new Chart(document.getElementById('canvas5').getContext('2d'), { type: 'bar', data: barChartData5, 'options': barChartOoptions });
 			window.myBar6 = new Chart(document.getElementById('canvas6').getContext('2d'), { type: 'bar', data: barChartData6, 'options': barChartOoptions });
 		};
+
+    $('form .autosubmit').on('change', function() {
+       this.form.submit();
+    });
 
 </script>
 {% endblock %}  {# content #}

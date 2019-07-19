@@ -1,8 +1,13 @@
-from django.shortcuts import render
+import os
+import base64
+
 from django.views.generic import TemplateView
 from django.urls import reverse, reverse_lazy
 from django.template.context_processors import csrf
 from django.shortcuts import render, redirect
+from django.conf import settings
+from django.http import HttpResponse, Http404
+
 from functools import wraps
 
 from conn1c.views import conn1c
@@ -85,6 +90,35 @@ def loginView(request):
         return render(request, 'base_login.html', args)
 
     request.session['emp_uid'] = emp_uid
+    return redirect(reverse('base:home'))
+
+def nofoto(request):
+    if os.path.exists(settings.NOPHOTO_PATH):
+        response = HttpResponse()
+        response["Content-Type"] = 'image/jpeg'
+        f = open(settings.NOPHOTO_PATH, "rb")
+        response.write(f.read())
+        f.close()
+        return response
+    else:
+        raise Http404
+
+def get_photo(request):
+    data1с = conn1c()
+    emp_uid = request.session.get('emp_uid', '')
+    s = data1с.get_photo(emp_uid)
+
+    if s:
+        dstr = base64.b64decode(s)
+        response = HttpResponse()
+        response["Content-Type"] = 'image/jpeg'
+        response.write(dstr)
+        return response
+
+    return nofoto(request)
+
+def upload_photo(request):
+    print('POST=',request.POST)
     return redirect(reverse('base:home'))
 
 @base_login()

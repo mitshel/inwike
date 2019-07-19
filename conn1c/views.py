@@ -1,5 +1,7 @@
 from django.shortcuts import render
+
 import requests
+import os
 
 user1c = 'web'
 pass1c = 'web'
@@ -55,8 +57,6 @@ class conn1c:
         result={}
         result['params'] = self.load_dict(['emp','Dep','org', 'position'], data)
 
-        print(result)
-
         return result
 
 
@@ -71,6 +71,18 @@ class conn1c:
         result = data.get('UID_FL',None)
 
         return result
+
+    def get_photo(self, emp_UID):
+        payload = {'emp_UID': emp_UID}
+        r = requests.get(self.base_url+'get_foto', params=payload, auth=(user1c, pass1c))
+        try:
+            data = r.json()[0]
+        except:
+            data = {}
+
+        photo = data.get('file_foto','')
+        return photo
+
 
 
 
