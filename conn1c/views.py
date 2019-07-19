@@ -83,6 +83,10 @@ class conn1c:
         photo = data.get('file_foto','')
         return photo
 
-
-
+    def upload_photo(self, emp_UID, dstr):
+        data = {'uid': emp_UID, 'file': dstr}
+        print(data)
+        r = requests.post(self.base_url+'upload_foto', data=data, auth=(user1c, pass1c))
+        print('Uploaded ?? =>', r)
+        return
 

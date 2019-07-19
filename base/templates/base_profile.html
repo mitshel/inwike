@@ -48,6 +48,31 @@
 
 <div class="container-fluid">
 
+<!-- LoadPhotoModal -->
+<div class="modal fade" id="LoadPhotoModal" tabindex="-1" role="dialog" aria-labelledby="LoadPhotoModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <form action="{% url "base:upload_photo" %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="LoadPhotoModalTitle">Заменить фотографию</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <input type="file" class="btn btn-sm" name="photo"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
   <div class="row">
   <div class="col-sm-12">
     <div class="jumbotron media mb-1" style="padding: 0.5rem 1rem;">
@@ -62,11 +87,8 @@
   <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-12">
         <div class="card">
-              <img src="{% url "base:photo" %}" class="card-img-top" alt="">
-               <form action="{% url "base:upload_photo" %}" method="POST">
-                   {% csrf_token %}
-                   <input type="file" class="btn btn-sm autosubmit" name="photo"/>
-               </form>
+          <img src="{% url "base:photo" %}" class="card-img-top" alt="">
+          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#LoadPhotoModal">Загрузить фото...</button>
           <div class="card-body">
             <div class="card-title">
                 <h5 class="pb-0 mb-0">{{ emp.params.emp }}</h5>
@@ -384,10 +406,6 @@
 			window.myBar5 = new Chart(document.getElementById('canvas5').getContext('2d'), { type: 'bar', data: barChartData5, 'options': barChartOoptions });
 			window.myBar6 = new Chart(document.getElementById('canvas6').getContext('2d'), { type: 'bar', data: barChartData6, 'options': barChartOoptions });
 		};
-
-    $('form .autosubmit').on('change', function() {
-       this.form.submit();
-    });
 
 </script>
 {% endblock %}  {# content #}

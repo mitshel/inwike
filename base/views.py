@@ -118,7 +118,14 @@ def get_photo(request):
     return nofoto(request)
 
 def upload_photo(request):
-    print('POST=',request.POST)
+    print('files=',request.FILES)
+    f = request.FILES.get('photo',None)
+    if f:
+        data1с = conn1c()
+        emp_uid = request.session.get('emp_uid', '')
+        dstr = base64.b64encode(f.read())
+        data1с.upload_photo(emp_uid, dstr)
+
     return redirect(reverse('base:home'))
 
 @base_login()
